@@ -4,7 +4,12 @@ services:
       context: ./voting-app
       dockerfile: ./dockerfiles/voting-app/Dockerfile.dev
     ports:
-      - "5173:5173"
+      - 5173:5173
     volumes:
       - ./voting-app:/app  # Sync local voting-app folder with /app in the container
       - /app/node_modules  # Ensure this volume doesn't shadow the host's node_modules
+    depends_on:
+      - redis
+  redis:
+    image: redis
+
