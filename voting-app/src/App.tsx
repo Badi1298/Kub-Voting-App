@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
 import './App.css';
 
 function App() {
+	const [dogs, setDogs] = useState(null);
+
 	useEffect(() => {
 		async function getRedisData() {
 			const response = await axios.get('http://localhost:8001/data');
@@ -21,7 +23,7 @@ function App() {
 			value: 3,
 		});
 
-		console.log(response);
+		console.log(response.data);
 	};
 
 	return (

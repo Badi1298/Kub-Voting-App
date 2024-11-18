@@ -23,7 +23,7 @@ client.on('error', (error) => {
 	await client.connect();
 })();
 
-app.get('/data', async (req, res) => {
+app.get('/data/dogs', async (req, res) => {
 	const value = await client.get('dogs');
 	res.json({ value });
 });
