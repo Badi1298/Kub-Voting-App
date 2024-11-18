@@ -2,7 +2,7 @@ services:
   voting-app:
     build:
       context: ./voting-app
-      dockerfile: Dockerfile.dev
+      dockerfile: ./dockerfiles/voting-app/Dockerfile.dev
     ports:
       - "5173:5173"
     volumes:
