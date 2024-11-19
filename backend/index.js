@@ -4,7 +4,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-const client = redis.createClient();
+
+const client = redis.createClient({
+	url: process.env.REDIS_URL,
+	host: process.env.REDIS_HOST || 'localhost', // Use REDIS_HOST from environment
+	port: process.env.REDIS_PORT || 6379, // Use REDIS_PORT from environment
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -23,7 +28,7 @@ client.on('error', (error) => {
 	await client.connect();
 })();
 
-app.get('/data/dogs', async (req, res) => {
+app.get('/data', async (req, res) => {
 	const value = await client.get('dogs');
 	res.json({ value });
 });
@@ -35,6 +40,6 @@ app.post('/data', async (req, res) => {
 	res.json({ key, value });
 });
 
-app.listen(8001, () => {
-	console.log('Server running on port 8001');
+app.listen(8001, '0.0.0.0', () => {
+	console.log('Backend is running on port 8001');
 });

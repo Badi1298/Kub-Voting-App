@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import axios from 'axios';
 
 import './App.css';
 
 function App() {
-	const [dogs, setDogs] = useState(null);
+	// const [dogs, setDogs] = useState(null);
 
 	useEffect(() => {
 		async function getRedisData() {
-			const response = await axios.get('http://localhost:8001/data');
+			const response = await axios.get('http://backend:8001/data');
 
 			return response;
 		}
@@ -18,7 +18,7 @@ function App() {
 	}, []);
 
 	const voteDogs = async () => {
-		const response = await axios.post('http://localhost:8001/data', {
+		const response = await axios.post('http://backend:8001/data', {
 			key: 'dogs',
 			value: 3,
 		});

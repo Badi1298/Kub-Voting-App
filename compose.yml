@@ -1,15 +1,28 @@
 services:
-  voting-app:
-    build:
-      context: ./voting-app
-      dockerfile: ./dockerfiles/voting-app/Dockerfile.dev
-    ports:
-      - 5173:5173
-    volumes:
-      - ./voting-app:/app  # Sync local voting-app folder with /app in the container
-      - /app/node_modules  # Ensure this volume doesn't shadow the host's node_modules
-    depends_on:
-      - redis
-  redis:
-    image: redis
-
+    voting-app:
+        build:
+            context: ./voting-app
+            dockerfile: Dockerfile.dev
+        ports:
+            - 5173:5173
+        volumes:
+            - ./voting-app:/app
+            - /app/node_modules
+        depends_on:
+            - redis
+            - backend
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile.dev
+        volumes:
+            - ./backend:/app
+            - /app/node_modules
+        depends_on:
+            - redis
+        environment:
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
+            REDIS_URL: redis://redis
+    redis:
+        image: redis
