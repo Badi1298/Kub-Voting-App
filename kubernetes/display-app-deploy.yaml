@@ -13,7 +13,8 @@ spec:
         spec:
             containers:
                 - name: display-container
-                  image: badi1298/display-app
+                  image: badi1298/display-app:latest
+                  imagePullPolicy: Always
                   resources:
                       requests:
                           cpu: 250m
