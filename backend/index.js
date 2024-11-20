@@ -29,7 +29,7 @@ client.on('error', (error) => {
 })();
 
 app.get('/data', (req, res) => {
-	res.json({ wow: 'amazing' });
+	res.send(200).json({ wow: 'amazing' });
 });
 
 app.get('/data/dogs', async (req, res) => {
