@@ -28,10 +28,6 @@ client.on('error', (error) => {
 	await client.connect();
 })();
 
-app.get('/data', (req, res) => {
-	res.status(200).json({ wow: 'amazing' });
-});
-
 app.get('/data/dogs', async (req, res) => {
 	const value = await client.get('dogs');
 	res.json({ value });
