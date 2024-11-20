@@ -56,4 +56,4 @@ app.post('/data', async (req, res) => {
 	res.json({ key, value });
 });
 
-app.listen(80);
+app.listen(80, () => {});
