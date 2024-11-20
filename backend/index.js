@@ -7,8 +7,8 @@ const app = express();
 
 const client = redis.createClient({
 	url: process.env.REDIS_URL,
-	host: process.env.REDIS_HOST || 'localhost', // Use REDIS_HOST from environment
-	port: process.env.REDIS_PORT || 6379, // Use REDIS_PORT from environment
+	host: process.env.REDIS_HOST || 'localhost',
+	port: process.env.REDIS_PORT || 6379,
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,14 +28,26 @@ client.on('error', (error) => {
 	await client.connect();
 })();
 
-app.get('/data', async (req, res) => {
+app.get('/data/dogs', async (req, res) => {
 	const value = await client.get('dogs');
 	res.json({ value });
 });
 
+app.get('/data/cats', async (req, res) => {
+	const value = await client.get('cats');
+	res.json({ value });
+});
+
 app.post('/data', async (req, res) => {
-	const { key, value } = req.body;
-	await client.set(key, value);
+	const { key } = req.body;
+
+	const value = await client.get(key);
+
+	if (!value) {
+		await client.set(key, 1);
+	} else {
+		await client.set(key, +value + 1);
+	}
 
 	res.json({ key, value });
 });

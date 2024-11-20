@@ -1,0 +1,37 @@
+<template>
+	<div class="container">
+		<h2 v-if="animalVotes.dogs">Dogs: {{ animalVotes.dogs }}</h2>
+		<h2 v-if="animalVotes.cats">Cats: {{ animalVotes.cats }}</h2>
+	</div>
+</template>
+
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+
+import axios from 'axios';
+
+const animalVotes = ref({
+	dogs: null,
+	cats: null,
+});
+
+onMounted(() => {
+	getAnimalVotes('dogs');
+	getAnimalVotes('cats');
+});
+
+const getAnimalVotes = async (animal: string): Promise<void> => {
+	const response = await axios.get(`http://localhost:8001/data/${animal}`);
+
+	animalVotes.value[animal] = response.data.value;
+};
+</script>
+
+<style scoped>
+.container {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	justify-content: center;
+}
+</style>
