@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const client = redis.createClient({
-	// url: process.env.REDIS_URL,
+	url: `redis://${process.env.REDIS_HOST}`,
 	host: process.env.REDIS_HOST || 'localhost',
 	port: process.env.REDIS_PORT || 6379,
 });

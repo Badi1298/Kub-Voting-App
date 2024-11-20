@@ -17,19 +17,19 @@ const animalVotes = ref({
 
 onMounted(() => {
 	testBackend();
-	// getAnimalVotes('dogs');
-	// getAnimalVotes('cats');
+	getAnimalVotes('dogs');
+	getAnimalVotes('cats');
 });
 
 const testBackend = async () => {
 	await axios.get('/api/data');
 };
 
-// const getAnimalVotes = async (animal: 'dogs' | 'cats'): Promise<void> => {
-// 	const response = await axios.get(`http://localhost:8001/data/${animal}`);
+const getAnimalVotes = async (animal: 'dogs' | 'cats'): Promise<void> => {
+	const response = await axios.get(`/api/data/${animal}`);
 
-// 	animalVotes.value[animal] = response.data.value;
-// };
+	animalVotes.value[animal] = response.data.value;
+};
 </script>
 
 <style scoped>

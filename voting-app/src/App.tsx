@@ -4,13 +4,13 @@ import './App.css';
 
 function App() {
 	const voteDogs = async () => {
-		await axios.post('http://localhost:8001/data', {
+		await axios.post('/api/data', {
 			key: 'dogs',
 		});
 	};
 
 	const voteCats = async () => {
-		await axios.post('http://localhost:8001/data', {
+		await axios.post('/api/data', {
 			key: 'cats',
 		});
 	};
