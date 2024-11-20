@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: display-app
+spec:
+    selector:
+        matchLabels:
+            app: display
+    template:
+        metadata:
+            labels:
+                app: display
+        spec:
+            containers:
+                - name: display-container
+                  image: badi1298/display-app
+                  resources:
+                      requests:
+                          cpu: 250m
+                          memory: 256Mi
+                      limits:
+                          cpu: 500m
+                          memory: 512Mi

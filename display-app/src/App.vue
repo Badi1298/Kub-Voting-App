@@ -16,15 +16,20 @@ const animalVotes = ref({
 });
 
 onMounted(() => {
-	getAnimalVotes('dogs');
-	getAnimalVotes('cats');
+	testBackend();
+	// getAnimalVotes('dogs');
+	// getAnimalVotes('cats');
 });
 
-const getAnimalVotes = async (animal: string): Promise<void> => {
-	const response = await axios.get(`http://localhost:8001/data/${animal}`);
-
-	animalVotes.value[animal] = response.data.value;
+const testBackend = async () => {
+	await axios.get('/api/data');
 };
+
+// const getAnimalVotes = async (animal: 'dogs' | 'cats'): Promise<void> => {
+// 	const response = await axios.get(`http://localhost:8001/data/${animal}`);
+
+// 	animalVotes.value[animal] = response.data.value;
+// };
 </script>
 
 <style scoped>

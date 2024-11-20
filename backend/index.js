@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const client = redis.createClient({
-	url: process.env.REDIS_URL,
+	// url: process.env.REDIS_URL,
 	host: process.env.REDIS_HOST || 'localhost',
 	port: process.env.REDIS_PORT || 6379,
 });
@@ -27,6 +27,10 @@ client.on('error', (error) => {
 (async () => {
 	await client.connect();
 })();
+
+app.get('/data', (req, res) => {
+	res.json({ wow: 'amazing' });
+});
 
 app.get('/data/dogs', async (req, res) => {
 	const value = await client.get('dogs');
@@ -52,6 +56,4 @@ app.post('/data', async (req, res) => {
 	res.json({ key, value });
 });
 
-app.listen(8001, '0.0.0.0', () => {
-	console.log('Backend is running on port 8001');
-});
+app.listen(80);
